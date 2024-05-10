@@ -1,12 +1,9 @@
-# get_next_line
-get_next_line project at 42 school
+Test comparisson
 
-Tests made:
+File with 200k characters and BUFFER SIZE 1
 
-File with 300k characters, buffer size 10:
-strjoin - 16 seconds
-nodes - 10 seconds
+My code
+![image](https://github.com/luciano-rolim/get_next_line/assets/40547130/93883f8b-03cc-4529-93e4-388d764b19dd)
 
-File with 300k characters, buffer size 5:
-strjoin - 32 seconds
-nodes - 28 seconds
+External code
+![image](https://github.com/luciano-rolim/get_next_line/assets/40547130/5192d601-bd9b-4f0c-a212-cf86c443bc7d)
