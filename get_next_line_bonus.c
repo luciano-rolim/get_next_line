@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmeneghe <lmeneghe@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/09 14:50:06 by lmeneghe          #+#    #+#             */
-/*   Updated: 2024/05/10 18:39:04 by lmeneghe         ###   ########.fr       */
+/*   Created: 2024/05/10 18:59:33 by lmeneghe          #+#    #+#             */
+/*   Updated: 2024/05/14 14:34:14 by lmeneghe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	free_all(t_node **linked_list)
 {
@@ -96,28 +96,28 @@ int	node_creation(t_node **list, int fd, t_node **last_node, size_t *s_len)
 
 char	*get_next_line(int fd)
 {
-	static t_node	*linked_list = NULL;
+	static t_node	*linked_list[OPEN_MAX];
 	t_node			*last_node;
 	char			*line;
 	size_t			str_len;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
 	{
-		free_all(&linked_list);
+		free_all(&linked_list[fd]);
 		return (NULL);
 	}
-	if (linked_list != NULL)
-		last_node = linked_list;
+	if (linked_list[fd] != NULL)
+		last_node = linked_list[fd];
 	else
 		last_node = NULL;
 	str_len = 0;
-	node_creation(&linked_list, fd, &last_node, &str_len);
-	if (linked_list == NULL)
+	node_creation(&linked_list[fd], fd, &last_node, &str_len);
+	if (linked_list[fd] == NULL)
 		return (NULL);
-	line = get_line(linked_list, &str_len);
+	line = get_line(linked_list[fd], &str_len);
 	if (!line)
 		return (NULL);
-	if (!surplus_treatment(&linked_list, &last_node))
+	if (!surplus_treatment(&linked_list[fd], &last_node))
 		return (NULL);
 	return (line);
 }

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmeneghe <lmeneghe@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/09 14:50:15 by lmeneghe          #+#    #+#             */
-/*   Updated: 2024/05/10 12:24:42 by lmeneghe         ###   ########.fr       */
+/*   Created: 2024/05/10 19:17:07 by lmeneghe          #+#    #+#             */
+/*   Updated: 2024/05/14 14:29:46 by lmeneghe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	custom_malloc(void **allocate, size_t size, t_node **linked_list)
 {
