@@ -34,7 +34,14 @@ Suppose you call your get_next_line only one time, and now if has remaining memo
 
 To solve it, I created a "backdoor" in a way that whenever you dont have access to the file (thereby, when the read function returns -1), my code free everything (including the static_node) and return NULL.
 
-![image](https://github.com/luciano-rolim/get_next_line/assets/40547130/9ee29ea6-c5ac-4242-935d-343a690186b6)
+
+		char_read = read(fd, buf, BUFFER_SIZE);
+		if (char_read < 0)
+		{
+			free_all(list);
+			free(buf);
+			return (0);
+		}
 
 So, it's only necessary to change the file permission and call GNL again to clean everything. To prove it, I created the file gnl_special_leak_test.c, which consist in a int main that calls the first line and on the sequence uses `fd = open(filename, O_WRONLY)` to change the file permission. When calling GNL for the second time, it will properly clean any remaining bytes allocated on heap, even if we did not reach the end of the file. 
 
@@ -54,15 +61,3 @@ To test my GNL, I created three different .c files with an int main, which are a
 - `gnl_special_leak_test.c` - Already commented, is specially designed to test possible leaks in a scenario with remaining content in your static variable.
 
 Also, I used the excellent [gnlTester](https://github.com/Tripouille/gnlTester) of Tripouille to test my GNL.
-
-		}
-		if (char_read == 0)
-		{
-			free(buf);
-			return (0);
-		}
-		buf[char_read] = '\0';
-		if (!node_concat(list, buf, last_node))
-			return (0);
-	}
-
