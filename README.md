@@ -1,6 +1,7 @@
-**INTRO:
-**
+**INTRO:**
+
 The objective of `get_next_line` function (abbreviated as "GNL") is to create a function that return a line read from a given file. More than that, it also use a static variable to preserve content for future calls of the same function on the same file. For more info, check the subject on `subject_get_next_line.pdf`
+
 
 **LINKED NODES AND SPEED OF EXECUTION**
 
@@ -22,8 +23,8 @@ If you want to replicate this test with your code, do as it follows:
 The key point, here, is to compile with a BUFFER_SIZE of 1 and to execute the ./a.out with the "time" flag, which will record the time of execution of the program
 3 - The execution time will be printed on the terminal screen
 
-**SPECIAL CASE FOR MEMORY LEAKS:
-**
+**SPECIAL CASE FOR MEMORY LEAKS:**
+
 - GNL has a special challenge, that it evolves how to prevent a memory leak in you static variable (in case you are using malloc to allocate the node and it's content on the heap). 
 
 Suppose you call your get_next_line only one time, and now if has remaining memory on the static node. How to clean it, if you can't give free on the static node directly?
