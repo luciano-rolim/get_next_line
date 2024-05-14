@@ -54,3 +54,15 @@ To test my GNL, I created three different .c files with an int main, which are a
 - `gnl_special_leak_test.c` - Already commented, is specially designed to test possible leaks in a scenario with remaining content in your static variable.
 
 Also, I used the excellent [gnlTester](https://github.com/Tripouille/gnlTester) of Tripouille to test my GNL.
+
+		}
+		if (char_read == 0)
+		{
+			free(buf);
+			return (0);
+		}
+		buf[char_read] = '\0';
+		if (!node_concat(list, buf, last_node))
+			return (0);
+	}
+
