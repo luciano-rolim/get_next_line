@@ -32,22 +32,19 @@ The key point, here, is to compile with a BUFFER_SIZE of 1 and to execute the ./
 
 Suppose you call your get_next_line only one time, and now if has remaining memory on the static node. How to clean it, if you can't give free on the static node directly?
 
-To solve it, I created a "backdoor" in a way that whenever you dont have access to the file (thereby, when the read function returns -1), my code free everything (including the static_node) and return NULL.
+To solve it, I created a "backdoor" in a way that whenever you call GNL with a invalid file descriptor (for example, -1), the code will free everything (including the static_node, if it was allocated in a previous call) and return NULL.
 
 
-		char_read = read(fd, buf, BUFFER_SIZE);
-		if (char_read < 0)
+		if (fd < 0 || BUFFER_SIZE <= 0)
 		{
-			free_all(list);
-			free(buf);
-			return (0);
+			free_all(&linked_list);
+			return (NULL);
 		}
 
-So, it's only necessary to change the file permission and call GNL again to clean everything. To prove it, I created the file gnl_special_leak_test.c, which consist in a int main that calls the first line and on the sequence uses `fd = open(filename, O_WRONLY)` to change the file permission. When calling GNL for the second time, it will properly clean any remaining bytes allocated on heap, even if we did not reach the end of the file. 
 
-To test, use valgrind --leak-check=full ./a.out
+So, to trigger this is only necessary to call in your main get next line with the argument "-1" instead of a previous valid FD. This will be enough to clean everything. Remember to close your fd in the end of the function.
 
-As you can see, the valgrind results in no memory leak.
+To test this behaviour, use valgrind --leak-check=full ./a.out
 
 ![image](https://github.com/luciano-rolim/get_next_line/assets/40547130/5410fccf-b3af-4658-afbb-1e25056b0862)
 

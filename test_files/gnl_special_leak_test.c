@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gnl_special_leak_test.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmeneghe <lmeneghe@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: lmeneghe <lmeneghe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 10:55:08 by lmeneghe          #+#    #+#             */
-/*   Updated: 2024/05/10 12:12:38 by lmeneghe         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:03:56 by lmeneghe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <sys/file.h>
-#include "get_next_line.h"
+
+#include "../get_next_line.h"
 
 #ifndef BUFFER_SIZE
 #define BUFFER_SIZE 8
 #endif
 
-char *get_next_line(int fd);
 
 int main() 
 {
@@ -48,17 +48,9 @@ int main()
         free(line);
     }
 
-    fd = open(filename, O_WRONLY);
-    if (fd == -1) 
-    {
-        perror("Error reopening file with write-only access");
-        remove(filename);
-        return 1;
-    }
-
-    line = get_next_line(fd);
+    line = get_next_line(-1);
     if (line == NULL) {
-        printf("get_next_line correctly returned NULL after permission change.\n");
+        printf("get_next_line correctly returned NULL after called with -1\n");
     } else {
         printf("Unexpected behavior: get_next_line did not return NULL. It returned: '%s'\n", line);
         free(line);
