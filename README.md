@@ -42,11 +42,9 @@ To solve it, I created a "backdoor" in a way that whenever you call GNL with a i
 		}
 
 
-So, to trigger this is only necessary to call in your main get next line with the argument "-1" instead of a previous valid FD. This will be enough to clean everything. Remember to close your fd in the end of the function.
+So, to trigger this is only necessary to call in your main get next line with the argument "-1" instead of a previous valid FD. This will be enough to clean everything. Remember to close your fd in the end of the function. I create a special test file called gnl_special_leak_test.c to test this scenario. You can check it for yourself, using the command valgrind --leak-check=full --track-fds=yes ./a.out
 
-To test this behaviour, use valgrind --leak-check=full ./a.out
-
-![image](https://github.com/luciano-rolim/get_next_line/assets/40547130/5410fccf-b3af-4658-afbb-1e25056b0862)
+![image](https://github.com/user-attachments/assets/f68d89e9-eaf3-42f2-b091-6fcefd58ec9f)
 
 
 
